@@ -1,0 +1,268 @@
+% ============================================================
+% TA-IND-01: IEEE 29148 y tipos de requisitos de un sistema conocido
+% Compilar con: pdflatex main.tex  (dos pasadas)
+% Capturas propias: guardar en capturas/ con los nombres
+%   captura-1-inicio.jpg, captura-2-buscador.jpg, captura-3-perfiles.jpg
+% ============================================================
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{microtype}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+
+% --- Nombres en español (sin babel: no hay spanish.ldf en este entorno) ---
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Tabla}
+\renewcommand{\refname}{Referencias}
+\renewcommand{\abstractname}{Resumen}
+\renewcommand{\contentsname}{Contenido}
+\renewcommand{\appendixname}{Anexo}
+
+\setlist{itemsep=2pt,topsep=3pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.15}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small TA-IND-01 · IEEE 29148 y tipos de requisitos}
+\fancyhead[R]{\small \NombreAutor}
+\fancyfoot[C]{\small\thepage}
+
+% ---------- DATOS A COMPLETAR ----------
+\newcommand{\NombreAutor}{Anderson Adonis Alc\'ivar V\'elez}
+\newcommand{\Paralelo}{A}
+\newcommand{\SistemaNombre}{Aplicaci\'on m\'ovil de Netflix}
+
+% Marcador de captura propia: si el archivo existe lo inserta, si no, deja un recuadro
+\newcommand{\captura}[3]{%
+  \begin{figure}[htbp]\centering
+  \IfFileExists{capturas/#1}{\includegraphics[height=8.5cm]{capturas/#1}}{%
+    \fbox{\parbox{0.55\textwidth}{\centering\vspace{2.6cm}\textbf{[Insertar captura propia]}\\ #1\vspace{2.6cm}}}}
+  \caption{#2}\label{#3}
+  \end{figure}}
+
+\newcommand{\cl}[1]{cl.~#1}
+
+\begin{document}
+
+\begin{center}
+{\LARGE\bfseries IEEE 29148 y tipos de requisitos\\ de un sistema conocido}\\[6pt]
+{\large Trabajo individual TA-IND-01}\\[8pt]
+\NombreAutor\ · Paralelo \Paralelo\\
+Sistema analizado: \textbf{\SistemaNombre}\\
+Noviembre de 2026
+\end{center}
+
+\vspace{4pt}
+\hrule
+\vspace{6pt}
+
+\textbf{Sistema analizado.} La \SistemaNombre\ es un servicio de transmisi\'on (\emph{streaming}) de series y pel\'iculas que el autor usa con frecuencia para buscar t\'itulos, reproducirlos, retomarlos donde los dej\'o, administrar perfiles y descargar contenido para verlo sin conexi\'on. Los requisitos de las secciones 3 a 5 se redactaron a partir de esas funciones observadas desde el punto de vista del usuario; no representan la especificaci\'on interna de la empresa. Las capturas de pantalla propias est\'an en el Anexo~A. Las citas \texttt{cl.} remiten a ISO/IEC/IEEE 29148:2018 [1] salvo indicaci\'on distinta.
+
+% ============================================================
+\section{Resumen anal\'itico de ISO/IEC/IEEE 29148:2018}
+% ============================================================
+
+\textbf{Prop\'osito.} La norma define los procesos de ingenier\'ia de requisitos a lo largo de todo el ciclo de vida de sistemas y software, y fija el contenido de los documentos que los recogen: la especificaci\'on de requisitos de las partes interesadas, la del sistema y la del software (\cl{9}) [1]. Su segunda edici\'on (2018) reemplaza a la de 2011. No es una norma certificable: sirve como marco de buenas pr\'acticas para escribir y gestionar requisitos.
+
+\textbf{Qu\'e es un requisito bien formado.} Seg\'un \cl{5.2.4}, un requisito no es una frase suelta, sino una construcci\'on con partes definidas. Un requisito bien formado expresa una capacidad o condici\'on que el sistema debe cumplir para satisfacer una necesidad de las partes interesadas (\cl{5.2.3}), y la expresa en un enunciado que combina: la condici\'on en que aplica, el sujeto (el sistema), la acci\'on, el objeto sobre el que act\'ua y, cuando corresponde, una restricci\'on medible de esa acci\'on. En este trabajo uso el patr\'on
+\[
+[\text{Condici\'on}]\;+\;[\text{Sujeto}]\;+\;\textit{deber\'a}\;+\;[\text{Acci\'on}]\;+\;[\text{Objeto}]\;+\;[\text{Restricci\'on medible}].
+\]
+Un requisito est\'a \emph{bien formado} cuando tiene esa estructura y adem\'as cumple las caracter\'isticas de la siguiente secci\'on. Que una frase empiece con ``el sistema deber\'a'' no basta: ``el sistema deber\'a reproducir con la mejor calidad'' conserva la forma pero no se puede verificar.
+
+\textbf{Caracter\'isticas de un requisito individual (\cl{5.2.5}).} La norma enumera nueve:
+\begin{itemize}
+  \item \emph{Necesario}: si se elimina, falta algo que las partes interesadas necesitan.
+  \item \emph{Apropiado}: su nivel de detalle corresponde al nivel de la entidad que lo recibe, sin dictar soluciones de dise\~no innecesarias.
+  \item \emph{No ambiguo}: admite una sola interpretaci\'on.
+  \item \emph{Completo}: se entiende por s\'i mismo, sin informaci\'on faltante.
+  \item \emph{Singular}: expresa una sola capacidad o restricci\'on.
+  \item \emph{Factible}: puede lograrse con las restricciones t\'ecnicas, de costo y de calendario del proyecto.
+  \item \emph{Verificable}: se puede demostrar su cumplimiento mediante inspecci\'on, an\'alisis, demostraci\'on o prueba.
+  \item \emph{Correcto}: representa fielmente la necesidad de la que proviene.
+  \item \emph{Conforme}: respeta la plantilla y el estilo que la organizaci\'on adopt\'o para sus requisitos.
+\end{itemize}
+
+\textbf{Caracter\'isticas de un conjunto de requisitos (\cl{5.2.6}).} Un conjunto puede fallar aunque cada requisito, por separado, sea bueno. Por eso la norma pide que el conjunto sea \emph{completo} (cubre todas las necesidades y no deja huecos), \emph{consistente} (sin contradicciones ni t\'erminos usados con sentidos distintos), \emph{factible} (realizable en conjunto, no solo uno a uno), \emph{comprensible} (los lectores lo entienden sin esfuerzo excesivo) y \emph{validable} (se puede comprobar que, juntos, resuelven el problema correcto). Un ejemplo con este sistema: exigir descargas ``en la m\'axima calidad disponible'' y, a la vez, un tama\~no m\'aximo de 100~MB por episodio de una hora ser\'ia un conjunto inconsistente, porque ambos objetivos chocan.
+
+\textbf{T\'erminos ambiguos que la norma desaconseja (\cl{5.2.7}).} La cl\'ausula de criterios de lenguaje pide evitar construcciones que impiden verificar un requisito. Las agrupo por categor\'ia, con ejemplos propios:
+\begin{itemize}
+  \item \emph{Superlativos}: ``la mejor calidad de imagen'', ``la m\'axima fluidez''.
+  \item \emph{Lenguaje subjetivo}: ``f\'acil de usar'', ``intuitivo'', ``agradable''.
+  \item \emph{Pronombres vagos}: ``esto'', ``eso'', ``\'el'' sin antecedente claro.
+  \item \emph{Adverbios y adjetivos ambiguos}: ``casi siempre'', ``r\'apidamente'', ``significativo'', ``m\'inimo''.
+  \item \emph{Expresiones abiertas}: ``incluyendo, entre otros'', ``etc.'', ``brindar soporte''.
+  \item \emph{Comparativos sin referencia}: ``carga m\'as r\'apido'', ``de mayor calidad''.
+  \item \emph{V\'ias de escape}: ``si es posible'', ``seg\'un corresponda'', ``cuando sea necesario''.
+  \item \emph{Referencias incompletas}: ``seg\'un la ley'' sin indicar cu\'al ni qu\'e art\'iculo.
+  \item \emph{Enunciados negativos}: ``el sistema no deber\'a fallar'', porque no se puede demostrar una ausencia total.
+\end{itemize}
+La soluci\'on com\'un es reemplazar el t\'ermino por una m\'etrica con umbral y condici\'on de medici\'on, y definir cualquier t\'ermino t\'ecnico en un glosario [1], [3].
+
+\textbf{Tipos de requisitos.} La \cl{5.2.8.3} da ejemplos del atributo ``tipo'' y la \cl{9.5} ordena el contenido de la especificaci\'on del sistema por tipos: funcionales (9.5.5), de usabilidad (9.5.6), de desempe\~no (9.5.7), de interfaz (9.5.8), de seguridad (9.5.13), de gesti\'on de informaci\'on (9.5.14) y de pol\'itica y regulaci\'on (9.5.15), entre otros [1]. Para los requisitos de calidad uso adem\'as el modelo de producto de ISO/IEC 25010:2023, que define nueve caracter\'isticas e incorpora \emph{seguridad funcional} (safety), \emph{capacidad de interacci\'on} en lugar de usabilidad y \emph{flexibilidad} en lugar de portabilidad [2]. Las m\'etricas siguen la l\'ogica de medici\'on de ISO/IEC 25023 [4].
+
+% ============================================================
+\section{Glosario de t\'erminos de la cl\'ausula 3}
+% ============================================================
+Las definiciones est\'an redactadas con mis palabras a partir de la cl\'ausula~3 de [1] (que remite al vocabulario com\'un de [3]); cada ejemplo es propio y corresponde a la aplicaci\'on de Netflix.
+
+\begin{longtable}{@{}p{0.5cm}p{2.6cm}p{5.7cm}p{5.6cm}@{}}
+\toprule
+\textbf{N.\textsuperscript{o}} & \textbf{T\'ermino} & \textbf{Definici\'on (con mis palabras)} & \textbf{Ejemplo propio}\\
+\midrule\endhead
+1 & Requisito (\emph{requirement}) & Enunciado que expresa una necesidad o restricci\'on sobre el sistema, redactado de modo que se pueda verificar. & R02: retomar un t\'itulo en el punto exacto donde se pausó, con una tolerancia de 10~s.\\
+2 & Parte interesada (\emph{stakeholder}) & Persona u organizaci\'on con inter\'es, derechos o responsabilidades respecto del sistema. & El suscriptor que mira series, el adulto que configura el perfil infantil y la autoridad de protecci\'on de datos.\\
+3 & Sistema (\emph{system}) & Conjunto de elementos que interact\'uan para cumplir un prop\'osito. & La app, los servidores de cat\'alogo, el servicio de entrega de video y el de cuentas.\\
+4 & Restricci\'on (\emph{constraint}) & Limitaci\'on impuesta a la soluci\'on por una parte interesada, una decisi\'on previa o una norma. & R13: el contenido descargado solo puede reproducirse dentro de la propia app.\\
+5 & Criterio de aceptaci\'on (\emph{acceptance criteria}) & Condici\'on que un producto debe cumplir para que el cliente lo reciba como v\'alido. & Para R05: el percentil 95 del tiempo de inicio de reproducci\'on es de 3~s o menos en la prueba.\\
+6 & Verificaci\'on (\emph{verification}) & Confirmaci\'on, con evidencia objetiva, de que el sistema cumple lo especificado (``se construy\'o bien''). & Reproducir 20 t\'itulos de prueba y cronometrar el inicio de cada uno contra el umbral de R05.\\
+7 & Validaci\'on (\emph{validation}) & Confirmaci\'on de que el sistema sirve para el uso previsto y satisface la necesidad real (``es el sistema correcto''). & Prueba con 10 personas nuevas que intentan empezar una serie sin ayuda (R09).\\
+8 & L\'inea base (\emph{baseline}) & Versi\'on de una especificaci\'on revisada y aprobada formalmente, que solo cambia mediante control de cambios. & La especificaci\'on del sistema v1.0 aprobada antes de iniciar el desarrollo de la versi\'on m\'ovil.\\
+9 & Trazabilidad (\emph{traceability}) & Capacidad de seguir un requisito hacia su origen y hacia lo que lo implementa o lo prueba. & R06 $\leftarrow$ necesidad ``proteger perfiles'' $\rightarrow$ caso de prueba CP-06.\\
+10 & Concepto de operaci\'on (\emph{operational concept}) & Descripci\'on de c\'omo se usar\'a el sistema en la pr\'actica, desde la perspectiva de quienes lo operan. & Escenario: abro la app, elijo mi perfil, busco una serie, la reproduzco y la descargo para el viaje.\\
+\bottomrule
+\end{longtable}
+
+% ============================================================
+\section{Requisitos formulados (primera versi\'on)}
+% ============================================================
+Se formularon 15 requisitos de diez tipos distintos. Los R05 a R10 son requisitos de calidad con m\'etrica y umbral, clasificados con ISO/IEC 25010:2023 en la Tabla~\ref{tab:clasif}. Esta es la primera redacci\'on, tal como sali\'o antes de la autoevaluaci\'on de la secci\'on~5.
+
+\begin{longtable}{@{}p{1cm}p{2.6cm}p{11.5cm}@{}}
+\caption{Requisitos en su primera versi\'on (V1).}\label{tab:v1}\\
+\toprule
+\textbf{ID} & \textbf{Tipo} & \textbf{Enunciado V1}\\
+\midrule\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Tipo} & \textbf{Enunciado V1}\\
+\midrule\endhead
+R01 & Funcional & La app debe reproducir el t\'itulo que el usuario elige con buena calidad.\\
+R02 & Funcional & El sistema recordar\'a por d\'onde iba el usuario para seguir viendo.\\
+R03 & Funcional & El usuario podr\'a tener varios perfiles en una cuenta, etc.\\
+R04 & Funcional & La aplicaci\'on permitir\'a descargar t\'itulos cuando sea posible.\\
+R05 & Desempe\~no & La reproducci\'on debe empezar r\'apido.\\
+R06 & Seguridad & Los perfiles deben estar protegidos.\\
+R07 & Fiabilidad & Si se cae el internet, la reproducci\'on debe recuperarse sola.\\
+R08 & Fiabilidad & El servicio estar\'a disponible casi siempre.\\
+R09 & Interacci\'on & La app debe ser f\'acil de usar para gente nueva.\\
+R10 & Flexibilidad & La aplicaci\'on funcionar\'a en los celulares m\'as comunes.\\
+R11 & Interfaz externa & La app se conectar\'a con los servidores de Netflix.\\
+R12 & Interfaz de usuario & La ficha de cada t\'itulo debe mostrar informaci\'on clara.\\
+R13 & Restricci\'on de dise\~no & El contenido descargado no debe poder usarse fuera de la app.\\
+R14 & Informaci\'on (datos) & El historial de lo visto se guardar\'a por un tiempo razonable.\\
+R15 & Regulatorio & La app cumplir\'a con la ley de datos al enviar avisos.\\
+\bottomrule
+\end{longtable}
+
+% ============================================================
+\section{Tabla de clasificaci\'on y criterios de aceptaci\'on}
+% ============================================================
+Se clasifican las versiones corregidas (secci\'on~5). La prioridad usa MoSCoW (M = debe, S = deber\'ia). La columna ISO/IEC 25010:2023 se llena para los requisitos de calidad (en negrita); en los dem\'as se indica la caracter\'istica relacionada solo para ubicarlos. Los n\'umeros de apartado de 29148 corresponden a la \cl{9.5} [1].
+
+\begin{longtable}{@{}p{0.9cm}p{2.2cm}p{3.1cm}p{0.8cm}p{7.6cm}@{}}
+\caption{Clasificaci\'on y criterio de aceptaci\'on de cada requisito.}\label{tab:clasif}\\
+\toprule
+\textbf{ID} & \textbf{Tipo (29148)} & \textbf{ISO/IEC 25010:2023} & \textbf{Prio.} & \textbf{Criterio de aceptaci\'on}\\
+\midrule\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Tipo (29148)} & \textbf{ISO/IEC 25010:2023} & \textbf{Prio.} & \textbf{Criterio de aceptaci\'on}\\
+\midrule\endhead
+R01 & Funcional (9.5.5) & Adecuaci\'on funcional: correcci\'on funcional & M & En 20 t\'itulos de prueba elegidos al azar, la reproducci\'on inicia el t\'itulo seleccionado (20 de 20), a partir del bot\'on Reproducir (Fig.~\ref{fig:inicio}).\\
+R02 & Funcional (9.5.5) & Adecuaci\'on funcional: correcci\'on funcional & M & Pausar a los 12:30, cerrar la app y reabrirla: la reproducci\'on se ofrece desde 12:30 $\pm$ 10~s.\\
+R03 & Funcional (9.5.5) & Adecuaci\'on funcional: completitud & M & En una cuenta de prueba se crean 5 perfiles con nombre distinto; el sexto intento es rechazado con mensaje (Fig.~\ref{fig:perfiles}).\\
+R04 & Funcional (9.5.5) & Adecuaci\'on funcional: completitud & S & Un episodio descargable se descarga con Wi-Fi y se reproduce con el modo avi\'on activado.\\
+\midrule
+R05 & Desempe\~no (9.5.7) & \textbf{Eficiencia de desempe\~no}: comportamiento temporal & M & M\'etrica: percentil 95 del tiempo entre tocar Reproducir y el primer fotograma; umbral $\le$ 3~s, en 30 pruebas con conexi\'on de 10~Mbps.\\
+R06 & Seguridad (9.5.13) & \textbf{Seguridad}: autenticidad & M & M\'etrica: \% de accesos a un perfil con PIN que exigen el PIN correcto; umbral 100\,\%. En 20 intentos con PIN err\'oneo, 20 rechazos; al 5.\textsuperscript{o} fallo, bloqueo de 15~min.\\
+R07 & Fiabilidad (9.5.9.3) & \textbf{Fiabilidad}: capacidad de recuperaci\'on & M & M\'etrica: \% de cortes de red de 20~s que se reanudan sin acci\'on del usuario; umbral $\ge$ 95\,\% en 20 pruebas (se desactiva y reactiva la red).\\
+R08 & Fiabilidad (9.5.9.3) & \textbf{Fiabilidad}: disponibilidad & M & M\'etrica: disponibilidad mensual del servicio de reproducci\'on; umbral $\ge$ 99,9\,\% ($\approx$ 43~min de ca\'ida al mes), con sondeo sint\'etico cada minuto durante 30 d\'ias.\\
+R09 & Usabilidad (9.5.6) & \textbf{Capacidad de interacci\'on}: capacidad de aprendizaje & S & Prueba con 10 personas que nunca usaron la app: m\'etrica = tasa de \'exito al iniciar un t\'itulo sin ayuda en $\le$ 60~s; umbral $\ge$ 90\,\% (Fig.~\ref{fig:buscar}).\\
+R10 & Adaptabilidad (9.5.11.2) & \textbf{Flexibilidad}: adaptabilidad e instalabilidad & M & M\'etrica: \% de casos cr\'iticos aprobados; umbral 100\,\% en al menos 5 dispositivos f\'isicos con Android $\ge$ 10 o iOS $\ge$ 15.\\
+\midrule
+R11 & Interfaz (9.5.8) & Compatibilidad: interoperabilidad & M & Captura de tr\'afico en el entorno de pruebas: todas las llamadas a los servidores usan HTTPS con TLS $\ge$ 1.2.\\
+R12 & Interfaz de usuario (9.5.6) & Capacidad de interacci\'on: autodescriptividad & M & Al abrir la ficha de un t\'itulo de prueba aparecen los cinco datos y los dos botones exigidos.\\
+R13 & Restricci\'on de dise\~no & Seguridad: confidencialidad & M & Se copia un archivo descargado a otro dispositivo o se abre con un reproductor externo: no se puede reproducir (0 de 5 intentos; guía MASVS-STORAGE [5]).\\
+R14 & Informaci\'on (9.5.14) & Adecuaci\'on funcional: completitud & S & En un perfil con 30 t\'itulos vistos, la secci\'on de actividad muestra los 30 ordenados del m\'as reciente al m\'as antiguo.\\
+R15 & Pol\'itica y regulaci\'on (9.5.15) & Seguridad: responsabilidad (\emph{accountability}) & M & En una instalaci\'on limpia, la casilla de avisos promocionales aparece sin marcar y no se env\'ia ninguno hasta aceptarla; la aceptaci\'on queda registrada con fecha y hora.\\
+\bottomrule
+\end{longtable}
+
+% ============================================================
+\section{Autoevaluaci\'on y versi\'on corregida}
+% ============================================================
+Cada V1 se evalu\'o contra las nueve caracter\'isticas de la \cl{5.2.5} y contra los criterios de lenguaje de la \cl{5.2.7}. La columna de defectos indica qu\'e se incumpli\'o; la versi\'on corregida (V2) aplica el patr\'on de la secci\'on~1. Las V2 de R05 a R10 incluyen m\'etrica, umbral y condici\'on de medici\'on.
+
+\begingroup\small
+\begin{longtable}{@{}p{0.9cm}p{4.9cm}p{9.4cm}@{}}
+\caption{Autoevaluaci\'on de V1 y versi\'on corregida V2.}\label{tab:auto}\\
+\toprule
+\textbf{ID} & \textbf{Defectos detectados en V1} & \textbf{Versi\'on corregida (V2)}\\
+\midrule\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Defectos detectados en V1} & \textbf{Versi\'on corregida (V2)}\\
+\midrule\endhead
+R01 & ``Buena calidad'' es subjetivo y no verificable; falta la condici\'on de disparo; mezcla reproducir y calidad (no singular). & Cuando el usuario toque Reproducir en la ficha de un t\'itulo disponible en su cat\'alogo, la aplicaci\'on deber\'a iniciar la reproducci\'on de ese mismo t\'itulo.\\
+R02 & ``Por d\'onde iba'' es impreciso; no dice cu\'ando se guarda ni con qu\'e exactitud (incompleto, no verificable). & Cuando el usuario pause o cierre una reproducci\'on, la aplicaci\'on deber\'a guardar la posici\'on y ofrecer retomarla en la misma posici\'on, con una tolerancia m\'axima de 10~s, en el mismo perfil.\\
+R03 & ``Varios'' es ambiguo y ``etc.'' es una expresi\'on abierta; el sujeto es el usuario, no el sistema. & La aplicaci\'on deber\'a permitir crear hasta 5 perfiles por cuenta, cada uno con un nombre distinto, y rechazar la creaci\'on de un sexto.\\
+R04 & ``Cuando sea posible'' es una v\'ia de escape; no dice qu\'e t\'itulos ni en qu\'e condiciones (incompleto). & Cuando el usuario elija un t\'itulo marcado como descargable y tenga conexi\'on y espacio suficiente, la aplicaci\'on deber\'a descargarlo y permitir su reproducci\'on sin conexi\'on a internet.\\
+R05 & ``R\'apido'' es un adverbio ambiguo; sin m\'etrica, umbral ni condiciones de medici\'on. & Con una conexi\'on de 10~Mbps, el percentil 95 del tiempo transcurrido entre tocar Reproducir y mostrarse el primer fotograma deber\'a ser menor o igual a 3~s, en al menos 30 pruebas.\\
+R06 & ``Protegidos'' es subjetivo; no dice de qu\'e ni con qu\'e mecanismo (incompleto, no verificable). & Cuando el usuario seleccione un perfil que tiene PIN, la aplicaci\'on deber\'a exigir el PIN correcto antes de mostrar su contenido y, tras 5 intentos fallidos seguidos, bloquear el acceso a ese perfil durante 15~min.\\
+R07 & ``Recuperarse sola'' y ``se cae'' son vagos; no hay duraci\'on del corte ni umbral. & Si la conexi\'on se interrumpe hasta 20~s durante una reproducci\'on, la aplicaci\'on deber\'a reanudarla autom\'aticamente al volver la red, sin acci\'on del usuario, en al menos el 95\,\% de los casos.\\
+R08 & ``Casi siempre'' es un adverbio ambiguo; no hay periodo de medici\'on ni tratamiento del mantenimiento programado. & El servicio de reproducci\'on deber\'a estar disponible al menos el 99,9\,\% del tiempo de cada mes calendario, excluidas las ventanas de mantenimiento programado comunicadas con anticipaci\'on.\\
+R09 & ``F\'acil de usar'' es lenguaje subjetivo; ``gente nueva'' no est\'a definida; no hay tarea ni umbral. & En una prueba con al menos 10 personas que nunca usaron la aplicaci\'on, al menos el 90\,\% deber\'a localizar e iniciar un t\'itulo sin ayuda en un m\'aximo de 60~s cada una.\\
+R10 & ``Los celulares m\'as comunes'' es un comparativo sin referencia; no hay versiones ni forma de comprobarlo. & La aplicaci\'on deber\'a instalarse y ejecutar el 100\,\% de sus casos de prueba cr\'iticos en Android 10 o superior e iOS 15 o superior, verificado en al menos 5 dispositivos f\'isicos distintos.\\
+R11 & ``Se conectar\'a'' es vago: no dice protocolo ni cifrado (incompleto). & La aplicaci\'on deber\'a comunicarse con los servidores del servicio \'unicamente mediante HTTPS con TLS 1.2 o superior.\\
+R12 & ``Informaci\'on clara'' es subjetivo; no lista el contenido ni las acciones. & Al abrir la ficha de un t\'itulo, la aplicaci\'on deber\'a mostrar sinopsis, a\~no, clasificaci\'on por edad, duraci\'on o n\'umero de temporadas, y los botones Reproducir y Descargar (este \'ultimo si el t\'itulo es descargable).\\
+R13 & Enunciado negativo gen\'erico (``no debe poder usarse'') sin se\~nalar qu\'e acceso se impide. & La aplicaci\'on deber\'a almacenar los t\'itulos descargados en un formato protegido que solo ella pueda reproducir, de modo que un archivo copiado fuera de la aplicaci\'on no sea reproducible.\\
+R14 & ``Un tiempo razonable'' es subjetivo; no dice qu\'e se guarda ni qu\'e ve el usuario. & La aplicaci\'on deber\'a registrar, por perfil, los t\'itulos reproducidos y mostrarlos en una lista de actividad ordenada del m\'as reciente al m\'as antiguo.\\
+R15 & ``La ley de datos'' es una referencia incompleta; no hay acci\'on verificable. & Antes de enviar avisos promocionales, la aplicaci\'on deber\'a obtener el consentimiento expreso del titular mediante una casilla no premarcada y registrarlo con fecha y hora, conforme a la Ley Org\'anica de Protecci\'on de Datos Personales del Ecuador [6].\\
+\bottomrule
+\end{longtable}
+\endgroup
+
+Tras la correcci\'on, cada V2 se revis\'o de nuevo contra las nueve caracter\'isticas individuales. Como conjunto (\cl{5.2.6}), R06 y R13 son consistentes (ambos protegen el acceso sin imponer reglas opuestas) y R05, R07 y R08 se complementan, porque medir el inicio de la reproducci\'on pierde sentido si el servicio est\'a ca\'ido. Queda como limitaci\'on que el conjunto de 15 no es \emph{completo}: faltan, por ejemplo, requisitos de accesibilidad (subt\'itulos y audiodescripci\'on) y de control de contenido para el perfil infantil.
+
+% ============================================================
+\section{Reflexi\'on}
+% ============================================================
+Antes de este trabajo, cuando algo en una app me parec\'ia bueno solo lo describ\'ia como ``r\'apido'' o ``f\'acil''. Al aplicar la norma entend\'i que esas palabras no se pueden comprobar. Lo m\'as \'util fue tener que fijar una m\'etrica, un umbral y una forma de medir: al intentarlo con R05 me di cuenta de que ``empezar r\'apido'' depende de la conexi\'on, del dispositivo y del t\'itulo, y que sin decir en qu\'e condiciones se mide, el requisito no dice nada.
+
+Tambi\'en me sorprendi\'o ver cu\'antas v\'ias de escape uso sin notarlo (``cuando sea posible'', ``etc.''). Parecen prudencia, pero dejan a quien construye y a quien paga discutiendo despu\'es qu\'e se prometi\'o. La parte m\'as dif\'icil fue la singularidad: R01 mezclaba reproducir y calidad, y separarlas me oblig\'o a ver que cada una requiere un tipo de requisito y un criterio de aceptaci\'on distintos.
+
+Como limitaci\'on, mis requisitos salen de lo que observo como usuario, no de documentos internos de la empresa, as\'i que umbrales como 3~s o 99,9\,\% son supuestos razonables y no valores oficiales. En un proyecto real habr\'ia que validarlos con las partes interesadas y con datos de operaci\'on. Me llevo un h\'abito concreto: antes de escribir ``deber\'a'', preguntarme c\'omo demostrar\'ia que se cumpli\'o.
+
+% ============================================================
+\appendix
+\section*{Anexo A. Capturas propias del sistema}
+\addcontentsline{toc}{section}{Anexo A. Capturas propias del sistema}
+% ============================================================
+Capturas tomadas por el autor en la aplicaci\'on m\'ovil de Netflix. Muestran tres de las funciones analizadas; los requisitos R04, R12 y R13 (descargas y ficha de t\'itulo) no tienen captura propia en este anexo.
+
+\captura{captura-1-inicio.jpg}{Pantalla de inicio: t\'itulo destacado con bot\'on Reproducir, bot\'on Mi lista, secci\'on ``Continuar viendo'' del perfil, \'icono de descargas y de notificaciones (evidencia para R01, R02, R14).}{fig:inicio}
+\captura{captura-2-buscador.jpg}{Buscador con lista de series y pel\'iculas recomendadas y bot\'on de reproducci\'on por t\'itulo (evidencia para R01, R09).}{fig:buscar}
+\captura{captura-3-perfiles.jpg}{Pantalla de perfil: perfil activo, otros perfiles de la cuenta, opci\'on Agregar y Administrar perfiles (evidencia para R03).}{fig:perfiles}
+
+% ============================================================
+\begin{thebibliography}{9}
+\bibitem{iso29148} ISO/IEC/IEEE, ``Systems and software engineering---Life cycle processes---Requirements engineering,'' ISO/IEC/IEEE 29148:2018, 2nd ed., Nov. 2018.
+\bibitem{iso25010} ISO/IEC, ``Systems and software engineering---Systems and software Quality Requirements and Evaluation (SQuaRE)---Product quality model,'' ISO/IEC 25010:2023, 2nd ed., Nov. 2023.
+\bibitem{iso24765} ISO/IEC/IEEE, ``Systems and software engineering---Vocabulary,'' ISO/IEC/IEEE 24765:2017, 2nd ed., 2017.
+\bibitem{iso25023} ISO/IEC, ``Systems and software engineering---Systems and software Quality Requirements and Evaluation (SQuaRE)---Measurement of system and software product quality,'' ISO/IEC 25023:2016, 2016.
+\bibitem{masvs} OWASP Foundation, ``OWASP Mobile Application Security Verification Standard (MASVS), v2.0.'' [Online]. Available: https://mas.owasp.org/MASVS/
+\bibitem{lopdp} Asamblea Nacional del Ecuador, ``Ley Org\'anica de Protecci\'on de Datos Personales,'' Registro Oficial Suplemento No.~459, May 26, 2021.
+\end{thebibliography}
+
+\end{document}
